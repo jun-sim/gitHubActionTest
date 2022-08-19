@@ -34,7 +34,7 @@ jobs:
         echo $RESULT
     - name : getApkName
       run : |
-        apkName = $(find app/build/outputs/apk/debug/*.apk)
+        apkName=$(find app/build/outputs/apk/debug/*.apk)
         echo $apkName
     - name: Upload APK
       uses: actions/upload-artifact@v3
