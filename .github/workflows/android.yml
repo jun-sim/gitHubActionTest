@@ -32,4 +32,12 @@ jobs:
       run : | 
         RESULT=$(git rev-parse --short HEAD)
         echo $RESULT
-
+    - name : getApkName
+      run : |
+        apkName = $(find app/build/outputs/apk/debug/*.apk)
+        echo $appName
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: appName
