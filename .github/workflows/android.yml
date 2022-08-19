@@ -16,9 +16,9 @@ jobs:
     - name: ch1
       run:  |
         RESULT=$(git rev-parse --short HEAD)
-        env: 
-          $RESULT
+      env: 
+        RESULT_HASH: RESULT
     - name: ch2
       run:  |
-        echo $RESULT
+        echo $RESULT_HASH
       
