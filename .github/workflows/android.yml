@@ -44,13 +44,17 @@ jobs:
       id : apkName
       run : |
         apkPath=$(find app/build/outputs/apk/debug/*.apk)
+        echo $apkPath
       env : 
-        APK_PATH: apkPath
+        APK_PATH: $apkPath
+    
+    - name: ch1
+      run:  |
+        echo ${{ steps.apkName.env.APK_PATH }}
+
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
         path: ${{ steps.apkName.env.APK_PATH }}
-    - name: ch1
-      run:  |
-        echo ${{ steps.apkName.env.APK_PATH }}
+   
