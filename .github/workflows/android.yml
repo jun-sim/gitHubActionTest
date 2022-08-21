@@ -13,17 +13,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v2
+      with:
+        path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
+        restore-keys: |
+            ${{ runner.os }}-gradle-
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+    - uses: actions/checkout@v2
+
+    - name: Build debug APK
+      run: bash ./gradlew assembleDebug --stacktrace
+    - name : Get git hash
+      run : | 
+    - name : getApkName
+      id : apkName
+      run : |
+        apkPath=$(find app/build/outputs/apk/debug/*.apk)
+      env : 
+        APK_PATH: apkPath
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: ${{ stpes.apkName.env.APK_PATH }}
     - name: ch1
-      id: ch1
       run:  |
-        RESULT=$(git rev-parse --short HEAD)
-        echo $RESULT
-        echo "::set-output name=result_hash::$(echo $RESULT)"
-      env:
-        RESULT_HASH: $RESULT
-    - name: ch2
-      run:  |
-        echo ${{steps.ch1.outputs.result_hash}}
-        echo ${{jobs.steps.ch1.env.RESULT_HASH}}
-      
+        echo ${{ stpes.apkName.env.APK_PATH }}
