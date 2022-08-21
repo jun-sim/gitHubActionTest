@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
@@ -38,8 +39,7 @@ jobs:
 
     - name: Build debug APK
       run: bash ./gradlew assembleDebug --stacktrace
-    - name : Get git hash
-      run : | 
+      
     - name : getApkName
       id : apkName
       run : |
@@ -50,11 +50,11 @@ jobs:
     
     - name: ch1
       run:  |
-        echo ${{ steps.apkName.env.APK_PATH }}
+        echo ${{steps.apkName.env.APK_PATH}}
 
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: ${{ steps.apkName.env.APK_PATH }}
+        path: ${{steps.apkName.env.APK_PATH}}
    
