@@ -54,10 +54,14 @@ jobs:
         echo ${{steps.apkName.env.APK_PATH}}
         echo ${{steps.apkName.outputs.apk_path}}
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v3
+
+    - name: upload artifact to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
       with:
-        name: my-artifact
-        path: ${{steps.apkName.outputs.apk_path}}
+        appId: ${{secrets.FIREBASE_APP_ID}}
+        token: ${{secrets.FIREBASE_TOKEN}}
+        groups: Debug
+        file: ${{steps.apkName.outputs.apk_path}}
+
 
    
