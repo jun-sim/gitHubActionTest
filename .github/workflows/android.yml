@@ -5,21 +5,20 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+env: 
+  RESULT_HASH: hello
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    env: 
-      RESULT_HASH: hello
     steps:
     - uses: actions/checkout@v3
     - name: ch1
       run:  |
         RESULT=$(git rev-parse --short HEAD)
         echo $RESULT
-        ${{ jobs.env.RESULT_HASH: $RESULT }}
+        ${{ env.RESULT_HASH: $RESULT }}
     - name: ch2
       run:  |
-        echo ${{ jobs.env.RESULT_HASH }}
+        echo ${{ env.RESULT_HASH }}
       
