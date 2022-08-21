@@ -25,5 +25,5 @@ jobs:
     - name: ch2
       run:  |
         echo ${{steps.ch1.outputs.result_hash}}
-        echo ${{jobs.ch1.env.RESULT_HASH}}
+        echo ${{steps.ch1.env.RESULT_HASH}}
       
