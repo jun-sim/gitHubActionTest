@@ -17,7 +17,7 @@ jobs:
       run:  |
         RESULT=$(git rev-parse --short HEAD)
         echo $RESULT
-        $RESULT_HASH: $RESULT
+        $RESULT_HASH: temp
     - name: ch2
       run:  |
         echo $RESULT_HASH
