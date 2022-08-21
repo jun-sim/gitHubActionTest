@@ -41,9 +41,10 @@ jobs:
       run: bash ./gradlew assembleDebug --stacktrace
       
     - name : getApkName
-      id : apkName
+      id: apkName
       run : |
         apkPath=$(find app/build/outputs/apk/debug/*.apk)
+        echo "::set-output name=apk_path::$(echo $apkPath)"
         echo $apkPath
       env : 
         APK_PATH: $apkPath
@@ -51,10 +52,12 @@ jobs:
     - name: ch1
       run:  |
         echo ${{steps.apkName.env.APK_PATH}}
+        echo ${{steps.apkName.outputs.apk_path}}
 
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: ${{steps.apkName.env.APK_PATH}}
+        path: ${{steps.apkName.outputs.apk_path}}
+
    
