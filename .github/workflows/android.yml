@@ -13,8 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    
     - name: ch1
-    - id: ch1
+      id: ch1
       run:  |
         RESULT=$(git rev-parse --short HEAD)
         echo $RESULT
