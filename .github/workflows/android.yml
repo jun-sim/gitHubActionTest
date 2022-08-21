@@ -20,7 +20,10 @@ jobs:
         RESULT=$(git rev-parse --short HEAD)
         echo $RESULT
         echo "::set-output name=result_hash::$(echo $RESULT)"
+      env:
+        RESULT_HASH: $RESULT
     - name: ch2
       run:  |
         echo ${{steps.ch1.outputs.result_hash}}
+        echo ${{jobs.ch1.env.RESULT_HASH}}
       
