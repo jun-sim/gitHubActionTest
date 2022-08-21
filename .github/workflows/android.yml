@@ -14,12 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: ch1
+    - id: ch1
       run:  |
         RESULT=$(git rev-parse --short HEAD)
         echo $RESULT
-        RESULT_HASH : $RESULT
-        echo $RESULT_HASH
+        echo "::set-output name=result_hash::$(echo $RESULT)"
     - name: ch2
       run:  |
-        echo $RESULT_HASH
+        echo ${{steps.ch1.outputs.result_hash}}
       
