@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: ${{ stpes.apkName.env.APK_PATH }}
+        path: ${{ steps.apkName.env.APK_PATH }}
     - name: ch1
       run:  |
-        echo ${{ stpes.apkName.env.APK_PATH }}
+        echo ${{ steps.apkName.env.APK_PATH }}
